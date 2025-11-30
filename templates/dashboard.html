@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - {{ agent.name }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen p-6">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-4xl font-bold mb-8">Welcome {{ agent.name }} ({{ agent.agent_code }})</h1>
+        
+        <div class="bg-green-600 p-6 rounded-xl mb-8">
+            <p class="text-xl">Your Invite Link (share with clients):</p>
+            <input readonly value="{{ invite_link }}" class="w-full p-3 mt-2 bg-gray-800 rounded text-lg">
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-gray-800 p-6 rounded-xl">
+                <h2 class="text-2xl mb-4">Your Clients ({{ clients|length }})</h2>
+                {% for c in clients %}
+                <div class="bg-gray-700 p-4 rounded mb-3">
+                    {{ c.name }} - Balance: ${{ c.balance }}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="bg-gray-800 p-6 rounded-xl">
+                <h2 class="text-2xl mb-4">Pending Deposits</h2>
+                {% for t in pending %}
+                <div class="bg-yellow-600 p-4 rounded mb-3">
+                    {{ t.amount }}$ deposit pending
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
